@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_001017) do
+ActiveRecord::Schema.define(version: 2021_01_03_131632) do
 
   create_table "candidates", force: :cascade do |t|
     t.integer "experience_range_id", null: false
     t.integer "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "base_id"
     t.index ["experience_range_id"], name: "index_candidates_on_experience_range_id"
     t.index ["location_id"], name: "index_candidates_on_location_id"
   end
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_001017) do
     t.integer "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "base_id"
     t.index ["experience_range_id"], name: "index_jobs_on_experience_range_id"
     t.index ["location_id"], name: "index_jobs_on_location_id"
   end

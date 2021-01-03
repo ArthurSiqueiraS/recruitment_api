@@ -1,3 +1,4 @@
+
 location = Location.create(city: 'Remote')
 experience_range = ExperienceRange.create(min_years: 0, max_years: 1)
 technology = Technology.create(name: 'AWS')
