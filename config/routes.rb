@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'technologies/index'
+  get 'locations/index'
+  get 'experience_ranges/index'
+  get 'jobs/index'
+  get 'jobs/show'
+  get 'candidates/index'
+  get 'candidates/show'
+
   post 'update_base' => 'base_api#update'
 end
