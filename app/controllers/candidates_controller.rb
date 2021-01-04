@@ -1,20 +1,13 @@
 class CandidatesController < QualificationsController
   def index
-    candidates = query(Candidate, params)
+    candidates = query(Candidate, params).limit(5)
 
     candidates = candidates.map { |candidate| candidate_data(candidate) }
 
     render json: candidates, status: :ok
   end
 
-  def show
-    begin
-      candidate = Candidate.find(params[:id])
-      render json: candidate, status: :ok
-    rescue ActiveRecord::RecordNotFound
-      render status: :not_found
-    end
-  end
+  private
 
   def candidate_data(candidate)
     candidate_technologies = CandidatesTechnologies.where(candidate: candidate).order(main: :desc)
