@@ -6,18 +6,13 @@ RSpec.describe Job, type: :model do
       @location = create(:location)
     end
 
-    it "must have location" do
-      job = Job.new(exp_min: 12)
-      expect(job.save).to eq(false)
-    end
-
     it "must have exp_min" do
-      job = Job.new(location: @location)
+      job = Job.new()
       expect(job.save).to eq(false)
     end
 
-    it "can have blank technologies, base_id and exp_max" do
-      job = Job.new(location: @location, exp_min: 12)
+    it "can have blank location, technologies, base_id and exp_max" do
+      job = Job.new(exp_min: 12)
       expect(job.save).to eq(true)
     end
 

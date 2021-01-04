@@ -1,5 +1,5 @@
 class Job < ApplicationRecord
-  belongs_to :location
+  belongs_to :location, optional: true
   has_and_belongs_to_many :technologies
 
   validates :exp_min, presence: true, numericality: { greater_than: -1 }

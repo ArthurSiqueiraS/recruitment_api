@@ -79,6 +79,9 @@ class BaseApiController < ApplicationController
 
   def find_or_create_location(location_string)
     city, state = location_string.split(' - ')
+
+    return if state.nil?
+
     Location.find_or_create_by(city: city, state: state)
   end
 

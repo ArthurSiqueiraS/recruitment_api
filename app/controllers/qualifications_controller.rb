@@ -27,7 +27,8 @@ class QualificationsController < ApplicationController
     query = {}
 
     if params[:locations].present?
-      query[:location] = params[:locations]
+      locations = params[:locations] == 'remote' ? nil : params[:locations]
+      query[:location] = locations
     end
 
     if params[:technologies].present?
