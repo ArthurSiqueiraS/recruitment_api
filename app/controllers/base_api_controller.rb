@@ -84,7 +84,7 @@ class BaseApiController < ApplicationController
 
   def find_or_create_candidate_technologies(candidate, technologies)
     technologies.each do |t|
-      technology = Technology.find_or_create_by(name: t['name'])
+      technology = Technology.find_or_create_by(name: t['name'].strip)
 
       CandidatesTechnologies.create({
         technology: technology,
@@ -96,9 +96,7 @@ class BaseApiController < ApplicationController
 
   def find_or_create_job_technologies(job, technologies)
     technologies.each do |t|
-      next unless t
-
-      technology = Technology.find_or_create_by(name: t['name'])
+      technology = t ? Technology.find_or_create_by(name: t['name']) : Technology.limit(1).order("RANDOM()").first
 
       JobsTechnologies.create({
         technology: technology,
