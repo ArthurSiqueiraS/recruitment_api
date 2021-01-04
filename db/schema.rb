@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2021_01_03_205707) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "candidates", force: :cascade do |t|
-    t.integer "location_id", null: false
+    t.bigint "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "base_id"
@@ -24,8 +27,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_205707) do
 
   create_table "candidates_technologies", force: :cascade do |t|
     t.boolean "main", default: false
-    t.integer "candidate_id", null: false
-    t.integer "technology_id", null: false
+    t.bigint "candidate_id", null: false
+    t.bigint "technology_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["candidate_id"], name: "index_candidates_technologies_on_candidate_id"
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_205707) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer "location_id", null: false
+    t.bigint "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "base_id"
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_205707) do
   end
 
   create_table "jobs_technologies", force: :cascade do |t|
-    t.integer "job_id", null: false
-    t.integer "technology_id", null: false
+    t.bigint "job_id", null: false
+    t.bigint "technology_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["job_id"], name: "index_jobs_technologies_on_job_id"
