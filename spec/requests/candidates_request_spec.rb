@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Candidates", type: :request do
+  describe "get candidates" do
+    before(:all) do
+      Array(1..20).each { create(:candidate) }
+      get '/candidates'
+    end
 
-  describe "GET /index" do
     it "returns http success" do
-      get "/candidates/index"
       expect(response).to have_http_status(:success)
     end
   end
-
-  describe "GET /show" do
-    it "returns http success" do
-      get "/candidates/show"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
 end

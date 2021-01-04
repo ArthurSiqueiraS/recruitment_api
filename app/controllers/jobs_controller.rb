@@ -1,4 +1,4 @@
-class JobsController < ApplicationController
+class JobsController < QualificationsController
   def index
   end
 

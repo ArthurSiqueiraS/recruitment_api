@@ -4,19 +4,15 @@ FactoryBot.define do
     state { 'SP' }
   end
 
-  factory :experience_range do
-    min_years { 0 }
-    max_years { 1 }
-  end
-
   factory :technology do
     sequence(:name) { |n| "Ruby#{n}" }
   end
 
   factory :candidate do
     base_id { 1 }
+    exp_min { 0 }
+    exp_max { 1 }
     association :location
-    association :experience_range
 
     factory :candidate_with_technologies do
       after(:create) do |candidate|
@@ -27,8 +23,9 @@ FactoryBot.define do
 
   factory :job do
     base_id { 1 }
+    exp_min { 0 }
+    exp_max { 2 }
     association :location
-    association :experience_range
 
     factory :job_with_technologies do
       after(:create) do |job|

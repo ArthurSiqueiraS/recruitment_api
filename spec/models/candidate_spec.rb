@@ -4,22 +4,37 @@ RSpec.describe Candidate, type: :model do
   context "validations" do
     before(:each) do
       @location = create(:location)
-      @exp_range = create(:experience_range)
     end
 
     it "must have location" do
-      candidate = Candidate.new(experience_range: @exp_range)
+      candidate = Candidate.new(exp_min: 12)
       expect(candidate.save).to eq(false)
     end
 
-    it "must have experience_range" do
+    it "must have exp_min" do
       candidate = Candidate.new(location: @location)
       expect(candidate.save).to eq(false)
     end
 
-    it "can have blank technologies and base_id" do
-      candidate = Candidate.new(location: @location, experience_range: @exp_range)
+    it "can have blank technologies, base_id and exp_max" do
+      candidate = Candidate.new(location: @location, exp_min: 12)
       expect(candidate.save).to eq(true)
+    end
+
+    context 'experience range validations' do
+      before(:each) do
+        @candidate = Candidate.new(location: @location)
+      end
+
+      it "exp_min has to be lower than exp_max" do
+        @candidate.assign_attributes(exp_min: 1, exp_max: 0)
+        expect(@candidate.save).to eq(false)
+      end
+
+      it "range can't be negative" do
+        @candidate.assign_attributes(exp_min: -1, exp_max: 0)
+        expect(@candidate.save).to eq(false)
+      end
     end
   end
 end

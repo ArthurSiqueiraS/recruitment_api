@@ -47,12 +47,13 @@ class BaseApiController < ApplicationController
 
   def create_candidate(candidate)
     location = find_or_create_location(candidate['city'])
-    exp_range = find_or_create_exp_range(candidate['experience'])
+    exp_min, exp_max = candidate['experience'].scan(/\d+/)
 
     new_candidate = Candidate.create({
       base_id: candidate['id'],
       location: location,
-      experience_range: exp_range
+      exp_min: exp_min,
+      exp_max: exp_max
     })
 
     find_or_create_candidate_technologies(new_candidate, candidate['technologies'])
@@ -62,12 +63,13 @@ class BaseApiController < ApplicationController
 
   def create_job(job)
     location = find_or_create_location(job['city'])
-    exp_range = find_or_create_exp_range(job['experience'])
+    exp_min, exp_max = job['experience'].scan(/\d+/)
 
     new_job = Job.create({
       base_id: job['id'],
       location: location,
-      experience_range: exp_range
+      exp_min: exp_min,
+      exp_max: exp_max
     })
 
     find_or_create_job_technologies(new_job, job['technologies'])
@@ -78,11 +80,6 @@ class BaseApiController < ApplicationController
   def find_or_create_location(location_string)
     city, state = location_string.split(' - ')
     Location.find_or_create_by(city: city, state: state)
-  end
-
-  def find_or_create_exp_range(experience_string)
-    min, max = experience_string.scan(/\d+/)
-    ExperienceRange.find_or_create_by(min_years: min, max_years: max)
   end
 
   def find_or_create_candidate_technologies(candidate, technologies)

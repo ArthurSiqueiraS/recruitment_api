@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_131632) do
+ActiveRecord::Schema.define(version: 2021_01_03_205707) do
 
   create_table "candidates", force: :cascade do |t|
-    t.integer "experience_range_id", null: false
     t.integer "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "base_id"
-    t.index ["experience_range_id"], name: "index_candidates_on_experience_range_id"
+    t.integer "exp_min"
+    t.integer "exp_max"
     t.index ["location_id"], name: "index_candidates_on_location_id"
   end
 
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 2021_01_03_131632) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer "experience_range_id", null: false
     t.integer "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "base_id"
-    t.index ["experience_range_id"], name: "index_jobs_on_experience_range_id"
+    t.integer "exp_min"
+    t.integer "exp_max"
     t.index ["location_id"], name: "index_jobs_on_location_id"
   end
 
@@ -71,11 +71,9 @@ ActiveRecord::Schema.define(version: 2021_01_03_131632) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "candidates", "experience_ranges"
   add_foreign_key "candidates", "locations"
   add_foreign_key "candidates_technologies", "candidates"
   add_foreign_key "candidates_technologies", "technologies"
-  add_foreign_key "jobs", "experience_ranges"
   add_foreign_key "jobs", "locations"
   add_foreign_key "jobs_technologies", "jobs"
   add_foreign_key "jobs_technologies", "technologies"
